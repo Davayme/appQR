@@ -12,6 +12,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,23 @@ import {MatListModule} from '@angular/material/list';
     MatSidenavModule,
     MatTooltipModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
+  ],
+  exports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    MatListModule,
+    HeaderComponent,
+    MenuComponent,
+    PageLoginComponent,
+    MatMenuModule
   ]
 })
 export class CoreModule { }

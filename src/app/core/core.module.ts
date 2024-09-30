@@ -1,52 +1,59 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PageLoginComponent } from './page-login/page-login.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
-import { PageLoginComponent } from './page-login/page-login.component';
 import { LoginComponent } from './login/login.component';
+import { RouterModule, RouterOutlet } from '@angular/router';
+
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { SharedModule } from '../shared/shared.module';
+
+
+
 
 @NgModule({
   declarations: [
+    PageLoginComponent,
     HeaderComponent,
     MenuComponent,
-    PageLoginComponent,
     LoginComponent
   ],
   imports: [
     CommonModule,
+    RouterOutlet,
+    RouterModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
     MatSidenavModule,
-    MatTooltipModule,
-    MatToolbarModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatToolbarModule,
+    SharedModule
   ],
   exports: [
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatTooltipModule,
-    MatToolbarModule,
-    MatListModule,
     HeaderComponent,
     MenuComponent,
-    PageLoginComponent,
-    MatMenuModule
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatMenuModule,
+    MatToolbarModule,
   ]
 })
 export class CoreModule { }

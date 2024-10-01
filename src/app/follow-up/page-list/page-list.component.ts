@@ -162,7 +162,7 @@ export class PageListComponent {
     reference.afterClosed().subscribe((response) => {
       if (!response) { return; }
       if (response.id) {
-        const index = this.data.findIndex(complaint => complaint.id === response.id);
+        const index = this.data.findIndex(followUp => followUp.id === response.id);
         if (index !== -1) {
           this.data[index] = response;
         }

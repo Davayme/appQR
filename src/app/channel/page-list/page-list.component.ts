@@ -11,7 +11,8 @@ import { environment } from 'src/environments/environment.development';
 export interface IChannel {
   _id: number; 
   name: string;
-  descripcion: string; 
+  type: string;
+  description: string; 
 }
 @Component({
   selector: 'qr-page-list',
@@ -20,20 +21,22 @@ export interface IChannel {
 })
 export class PageListComponent {
  data: IChannel[] = [
-    { _id: 1, name: 'Facebook', descripcion: 'Red social' },
-    { _id: 2, name: 'Instagram', descripcion: 'Red social' },
-    { _id: 3, name: 'Twitter', descripcion: 'Red social' },
-    { _id: 4, name: 'Tiktok', descripcion: 'Red social' },
-    { _id: 5, name: 'Youtube', descripcion: 'Red social' },
-    { _id: 6, name: 'Facebook', descripcion: 'Red social' },
-    { _id: 7, name: 'Instagram', descripcion: 'Red social' },
-    { _id: 8, name: 'Twitter', descripcion: 'Red social' },
-    { _id: 9, name: 'Tiktok', descripcion: 'Red social' },
+    { _id: 1, name: 'Canal 1', type: 'Online', description: 'Descripción 1' },
+    { _id: 2, name: 'Canal 2', type: 'Telefónico', description: 'Descripción 2' },
+    { _id: 3, name: 'Canal 3', type: 'Presencial', description: 'Descripción 3' },
+    { _id: 4, name: 'Canal 4', type: 'Correo Electrónico', description: 'Descripción 4' },
+    { _id: 5, name: 'Canal 5', type: 'Redes Sociales', description: 'Descripción 5' },
+    { _id: 6, name: 'Canal 6', type: 'Online', description: 'Descripción 6' },
+    { _id: 7, name: 'Canal 7', type: 'Telefónico', description: 'Descripción 7' },
+    { _id: 8, name: 'Canal 8', type: 'Presencial', description: 'Descripción 8' },
+    { _id: 9, name: 'Canal 9', type: 'Correo Electrónico', description: 'Descripción 9' },
+    { _id: 10, name: 'Canal 10', type: 'Redes Sociales', description: 'Descripción 10' },
   ];
 
   metaDataColumns: MetaDataColumn[] = [
     { field: "_id", title: "ID" },
     { field: "name", title: "NOMBRE" },
+    { field: "type", title: "TIPO" },
     { field: "description", title: "DESCRIPCIÓN" }
   ];
   keypadButtons: KeypadButton[] = [

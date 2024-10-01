@@ -30,6 +30,7 @@ export class FormComponent {
     this.group = new FormGroup({
       _id: new FormControl(this.data?._id),
       name: new FormControl(this.data?.name, Validators.required),
+      type: new FormControl(this.data?.type, Validators.required),
       description: new FormControl(this.data?.description, Validators.required),
     })
   }

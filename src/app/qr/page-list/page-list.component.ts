@@ -58,10 +58,10 @@ export class PageListComponent {
   snackBar = inject(MatSnackBar);
 
   constructor() {
-    this.loadComplaints();
+    this.loadFollowUps();
   }
 
-  loadComplaints() {
+  loadFollowUps() {
     this.records = [...this.data];
     this.changePage(this.currentPage);
   }
@@ -75,7 +75,7 @@ export class PageListComponent {
     if (position !== -1) {
       this.data.splice(position, 1);
       this.totalRecords = this.data.length;
-      this.loadComplaints();
+      this.loadFollowUps();
     }
   }
 
@@ -95,13 +95,13 @@ export class PageListComponent {
           this.data[index] = response;
         }
         this.totalRecords = this.data.length;
-        this.loadComplaints();
+        this.loadFollowUps();
         this.showMessage('Registro actualizado');
       } else {
         const newComplaint = { ...response, id: this.data.length + 1 };
         this.data.push(newComplaint);
         this.totalRecords = this.data.length;
-        this.loadComplaints();
+        this.loadFollowUps();
         this.showMessage('Registro exitoso');
       }
     });

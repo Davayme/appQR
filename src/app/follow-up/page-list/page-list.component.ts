@@ -13,7 +13,7 @@ export interface IFollowUp {
   complaintId: number; 
   status: string; 
   assignedTo: string; 
-  createdDate: Date; 
+  createdDate: string; 
   comments: string;
 }
 
@@ -29,7 +29,7 @@ export class PageListComponent {
       complaintId: 101, 
       status: 'Abierto', 
       assignedTo: 'Juan Pérez', 
-      createdDate: new Date('2023-01-15'), 
+      createdDate: '2023-01-15', 
       comments: 'Cliente reporta problemas con el producto.' 
     },
     { 
@@ -37,7 +37,7 @@ export class PageListComponent {
       complaintId: 102, 
       status: 'En Proceso', 
       assignedTo: 'María Gómez', 
-      createdDate: new Date('2023-02-10'), 
+      createdDate: '2023-02-10', 
       comments: 'Se está investigando el problema reportado.' 
     },
     { 
@@ -45,7 +45,7 @@ export class PageListComponent {
       complaintId: 103, 
       status: 'Cerrado', 
       assignedTo: 'Carlos Martínez', 
-      createdDate: new Date('2023-03-05'), 
+      createdDate: '2023-03-05', 
       comments: 'Problema resuelto y cliente notificado.' 
     },
     { 
@@ -53,7 +53,7 @@ export class PageListComponent {
       complaintId: 104, 
       status: 'Abierto', 
       assignedTo: 'Diana Torres', 
-      createdDate: new Date('2023-04-01'), 
+      createdDate: '2023-04-01', 
       comments: 'Cliente solicita reembolso.' 
     },
     { 
@@ -61,7 +61,7 @@ export class PageListComponent {
       complaintId: 105, 
       status: 'En Proceso', 
       assignedTo: 'Eduardo López', 
-      createdDate: new Date('2023-04-15'), 
+      createdDate: '2023-04-15', 
       comments: 'Revisión de la solicitud de reembolso en curso.' 
     },
     { 
@@ -69,7 +69,7 @@ export class PageListComponent {
       complaintId: 106, 
       status: 'Cerrado', 
       assignedTo: 'Fernanda Morales', 
-      createdDate: new Date('2023-05-10'), 
+      createdDate: '2023-05-10', 
       comments: 'Reembolso procesado y cliente notificado.' 
     },
     { 
@@ -77,7 +77,7 @@ export class PageListComponent {
       complaintId: 107, 
       status: 'Abierto', 
       assignedTo: 'Gabriel Pérez', 
-      createdDate: new Date('2023-06-01'), 
+      createdDate: '2023-06-01', 
       comments: 'Cliente reporta mal funcionamiento del software.' 
     },
     { 
@@ -85,7 +85,7 @@ export class PageListComponent {
       complaintId: 108, 
       status: 'En Proceso', 
       assignedTo: 'Hilda Romero', 
-      createdDate: new Date('2023-06-15'), 
+      createdDate: '2023-06-15', 
       comments: 'Equipo técnico revisando el problema reportado.' 
     },
     { 
@@ -93,7 +93,7 @@ export class PageListComponent {
       complaintId: 109, 
       status: 'Cerrado', 
       assignedTo: 'Ignacio Castro', 
-      createdDate: new Date('2023-07-05'), 
+      createdDate: '2023-07-05', 
       comments: 'Problema solucionado con actualización de software.' 
     },
     { 
@@ -101,7 +101,7 @@ export class PageListComponent {
       complaintId: 110, 
       status: 'Abierto', 
       assignedTo: 'Julia Rivas', 
-      createdDate: new Date('2023-07-20'), 
+      createdDate: '2023-07-20', 
       comments: 'Cliente insatisfecho con el servicio recibido.' 
     }
   ];
@@ -151,7 +151,7 @@ export class PageListComponent {
     }
   }
 
-  openForm(row: IFollowUp | null = null) {
+  openForm(row: IFollowUp| null = null) {
     const options = {
       panelClass: 'panel-container',
       disableClose: true,
@@ -161,22 +161,20 @@ export class PageListComponent {
 
     reference.afterClosed().subscribe((response) => {
       if (!response) { return; }
-
-      if (!row) {
-        const newId = this.data.length > 0 ? Math.max(...this.data.map(item => item.id)) + 1 : 1;
-        const newTracking = { id: newId, ...response };
-        this.data.push(newTracking);
+      if (response.id) {
+        const index = this.data.findIndex(complaint => complaint.id === response.id);
+        if (index !== -1) {
+          this.data[index] = response;
+        }
+        this.totalRecords = this.data.length;
+        this.loadRecords();
+        this.showMessage('Registro actualizado');
+      } else {
+        const newComplaint = { ...response, id: this.data.length + 1 };
+        this.data.push(newComplaint);
         this.totalRecords = this.data.length;
         this.loadRecords();
         this.showMessage('Registro exitoso');
-      } else {
-        const index = this.data.findIndex(track => track.id === row.id);
-        if (index !== -1) {
-          this.data[index] = { ...row, ...response };
-          this.totalRecords = this.data.length;
-          this.loadRecords();
-          this.showMessage('Registro actualizado');
-        }
       }
     });
   }

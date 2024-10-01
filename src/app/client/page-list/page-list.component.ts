@@ -50,73 +50,104 @@ export class PageListComponent {
     { icon: "add", tooltip: "AGREGAR", color: "primary", action: "NEW" }
   ]
 
-  records: IClient[] = []
+  records: IClient[] = [];
   totalRecords = this.data.length
 
-  bottomSheet = inject(MatBottomSheet)
-  dialog = inject(MatDialog)
-  snackBar = inject(MatSnackBar)
+  currentPage = 0;
+
+  bottomSheet = inject(MatBottomSheet);
+  dialog = inject(MatDialog);
+  snackBar = inject(MatSnackBar);
 
   constructor() {
-    this.loadClients()
+    this.loadClients();
   }
 
   loadClients() {
-    this.records = this.data
+    this.records = [...this.data];
+    this.changePage(this.currentPage);
   }
 
   delete(id: number) {
-    const position = this.data.findIndex(ind => ind._id === id)
-    this.records = this.data.splice(position, 1)
-    this.loadClients()
+    const position = this.data.findIndex(ind => ind._id === id);
+    if (position !== -1) {
+      this.data.splice(position, 1);
+      this.totalRecords = this.data.length;
+      console.log(this.data);
+      this.loadClients();
+    }
   }
 
-  openForm(row: any | null = null) {
+  openForm(row: IClient | null = null) {
     const options = {
       panelClass: 'panel-container',
       disableClose: true,
       data: row
-    }
-    const reference: MatDialogRef<FormComponent> = this.dialog.open(FormComponent, options)
+    };
+    const reference: MatDialogRef<FormComponent> = this.dialog.open(FormComponent, options);
 
     reference.afterClosed().subscribe((response) => {
-      if (!response) { return }
-      if (response.id) {
-        const agencia = { ...response }
-        this.loadClients()
-        this.showMessage('Registro actualizado')
-
+      if (!response) { return; }
+      if (response._id) {
+        const index = this.data.findIndex(client => client._id === response._id);
+        if (index !== -1) {
+          this.data[index] = response;
+        }
+        this.totalRecords = this.data.length;
+        this.loadClients();
+        this.showMessage('Registro actualizado');
       } else {
-        const agencia = { ...response }
-        this.data.push(agencia)
-        this.loadClients()
-        this.showMessage('Registro exitoso')
+        const newclient = { ...response, _id: this.data.length + 1 };
+        this.data.push(newclient);
+        this.totalRecords = this.data.length;
+        this.loadClients();
+        this.showMessage('Registro exitoso');
       }
-    })
+    });
   }
 
   doAction(action: string) {
     switch (action) {
       case 'DOWNLOAD':
-        this.showBottomSheet("Lista de Clientes", "clientes", this.data)
-        break
+        this.showBottomSheet("Lista de Clientes", "clientes", this.data);
+        break;
       case 'NEW':
-        this.openForm()
-        break
+        this.openForm();
+        break;
     }
   }
 
   showBottomSheet(title: string, fileName: string, data: any) {
-    this.bottomSheet.open(DownloadComponent)
+    this.bottomSheet.open(DownloadComponent);
   }
 
   showMessage(message: string, duration: number = 5000) {
-    this.snackBar.open(message, '', { duration })
+    this.snackBar.open(message, '', { duration });
   }
 
   changePage(page: number) {
-    const pageSize = environment.PAGE_SIZE
-    const skip = pageSize * page
-    this.data = this.records.slice(skip, skip + pageSize)
+    const pageSize = environment.PAGE_SIZE;
+    const skip = pageSize * page;
+    this.records = this.data.slice(skip, skip + pageSize);
+    this.currentPage = page;
+  }
+
+  editRecord(record: any) {
+    const dialogRef = this.dialog.open(FormComponent, {
+      data: record
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.data.findIndex(r => r._id === result._id);
+
+        if (index !== -1) {
+          this.data[index] = result;
+          console.log(this.data);
+          this.loadClients();
+        }
+
+      }
+    });
   }
 }

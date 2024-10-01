@@ -19,6 +19,7 @@ export interface IAgency {
   templateUrl: './page-list.component.html',
   styleUrls: ['./page-list.component.css']
 })
+
 export class PageListComponent {
   data: IAgency[] = [
     { _id: 1, name: 'Ambato', address: 'Calle A' },
@@ -49,6 +50,8 @@ export class PageListComponent {
   records: IAgency[] = [];
   totalRecords = this.data.length;
 
+  currentPage = 0;
+
   bottomSheet = inject(MatBottomSheet);
   dialog = inject(MatDialog);
   snackBar = inject(MatSnackBar);
@@ -59,13 +62,14 @@ export class PageListComponent {
 
   loadAgencies() {
     this.records = [...this.data];
-    this.changePage(0);
+    this.changePage(this.currentPage);
   }
 
   delete(id: number) {
     const position = this.data.findIndex(ind => ind._id === id);
     if (position !== -1) {
       this.data.splice(position, 1);
+      this.totalRecords = this.data.length;
       this.loadAgencies();
     }
   }
@@ -85,11 +89,13 @@ export class PageListComponent {
         if (index !== -1) {
           this.data[index] = response;
         }
+        this.totalRecords = this.data.length; 
         this.loadAgencies();
         this.showMessage('Registro actualizado');
       } else {
-        const newAgency = { ...response, _id: this.data.length + 1 }; // Asignar un nuevo ID
+        const newAgency = { ...response, _id: this.data.length + 1 };
         this.data.push(newAgency);
+        this.totalRecords = this.data.length;
         this.loadAgencies();
         this.showMessage('Registro exitoso');
       }
@@ -119,6 +125,7 @@ export class PageListComponent {
     const pageSize = environment.PAGE_SIZE;
     const skip = pageSize * page;
     this.records = this.data.slice(skip, skip + pageSize);
+    this.currentPage = page;
   }
 
   editRecord(record: any) {

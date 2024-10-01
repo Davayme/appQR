@@ -10,10 +10,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface IComplaint {
   id: number;
-  id_cliente: number;
-  id_empleado: number;
-  id_seguimiento: number;
-  fecha: string;
+  id_client: number;
+  id_employee: number;
+  dateCreated: string;
+  comentary: string;
 }
 
 @Component({
@@ -23,29 +23,25 @@ export interface IComplaint {
 })
 export class PageListComponent {
   data: IComplaint[] = [
-    { id: 1, id_cliente: 101, id_empleado: 201, id_seguimiento: 301, fecha: '2024-01-01' },
-    { id: 2, id_cliente: 102, id_empleado: 202, id_seguimiento: 302, fecha: '2024-01-02' },
-    { id: 3, id_cliente: 103, id_empleado: 203, id_seguimiento: 303, fecha: '2024-01-03' },
-    { id: 4, id_cliente: 104, id_empleado: 204, id_seguimiento: 304, fecha: '2024-01-04' },
-    { id: 5, id_cliente: 105, id_empleado: 205, id_seguimiento: 305, fecha: '2024-01-05' },
-    { id: 6, id_cliente: 106, id_empleado: 206, id_seguimiento: 306, fecha: '2024-01-06' },
-    { id: 7, id_cliente: 107, id_empleado: 207, id_seguimiento: 307, fecha: '2024-01-07' },
-    { id: 8, id_cliente: 108, id_empleado: 208, id_seguimiento: 308, fecha: '2024-01-08' },
-    { id: 9, id_cliente: 109, id_empleado: 209, id_seguimiento: 309, fecha: '2024-01-09' },
-    { id: 10, id_cliente: 110, id_empleado: 210, id_seguimiento: 310, fecha: '2024-01-10' },
-    { id: 11, id_cliente: 111, id_empleado: 211, id_seguimiento: 311, fecha: '2024-01-11' },
-    { id: 12, id_cliente: 112, id_empleado: 212, id_seguimiento: 312, fecha: '2024-01-12' },
-    { id: 13, id_cliente: 113, id_empleado: 213, id_seguimiento: 313, fecha: '2024-01-13' },
-    { id: 14, id_cliente: 114, id_empleado: 214, id_seguimiento: 314, fecha: '2024-01-14' },
-    { id: 15, id_cliente: 115, id_empleado: 215, id_seguimiento: 315, fecha: '2024-01-15' },
+    { id: 1, id_client: 101, id_employee: 201, dateCreated: '2024-01-01', comentary: 'El producto llegó dañado y no funciona correctamente.' },
+  { id: 2, id_client: 102, id_employee: 202, dateCreated: '2024-01-02', comentary: 'El servicio de atención al cliente fue muy deficiente.' },
+  { id: 3, id_client: 103, id_employee: 203, dateCreated: '2024-01-03', comentary: 'No recibí el producto que había pedido.' },
+  { id: 4, id_client: 104, id_employee: 204, dateCreated: '2024-01-04', comentary: 'La entrega del producto se demoró mucho más de lo esperado.' },
+  { id: 5, id_client: 105, id_employee: 205, dateCreated: '2024-01-05', comentary: 'El producto no coincide con la descripción en la página web.' },
+  { id: 6, id_client: 106, id_employee: 206, dateCreated: '2024-01-06', comentary: 'Tuve problemas para instalar el software que compré.' },
+  { id: 7, id_client: 107, id_employee: 207, dateCreated: '2024-01-07', comentary: 'El reembolso que solicité no ha sido procesado.' },
+  { id: 8, id_client: 108, id_employee: 208, dateCreated: '2024-01-08', comentary: 'El producto dejó de funcionar después de una semana de uso.' },
+  { id: 9, id_client: 109, id_employee: 209, dateCreated: '2024-01-09', comentary: 'El servicio técnico no resolvió mi problema.' },
+  { id: 10, id_client: 110, id_employee: 210, dateCreated: '2024-01-10', comentary: 'El producto llegó incompleto, faltaban piezas.' }
+  
   ];
 
   metaDataColumns: MetaDataColumn[] = [
     { field: "id", title: "ID" },
-    { field: "id_cliente", title: "ID CLIENTE" },
-    { field: "id_empleado", title: "ID EMPLEADO" },
-    { field: "id_seguimiento", title: "ID SEGUIMIENTO" },
-    { field: "fecha", title: "FECHA" }
+    { field: "id_client", title: "ID CLIENTE" },
+    { field: "id_employee", title: "ID EMPLEADO" },
+    { field: "dateCreated", title: "FECHA DE CREACIÓN" },
+    { field: "comentary", title: "COMENTARIO" }
   ];
 
   keypadButtons: KeypadButton[] = [

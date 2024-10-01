@@ -1,12 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
-export interface ITracking {
-  id: number;
-  status: string;
-  description: string;
-}
 
 @Component({
   selector: 'qr-form',
@@ -14,24 +8,33 @@ export interface ITracking {
   styleUrls: ['./form.component.css']
 })
 export class FormComponent {
-  group: FormGroup;
-  title: string;
+  title=""
+  group!:FormGroup
 
   constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<FormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ITracking
-  ) {
-    this.title = data ? 'Editar Seguimiento' : 'Nuevo Seguimiento';
-    this.group = this.fb.group({
-      // Eliminar el campo `id` del formulario para no editarlo.
-      status: [data?.status || '', Validators.required]
-    });
+    private reference:MatDialogRef<FormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data:any){
+      this.title = data ? "EDITAR" : "NUEVO"
   }
 
-  save() {
-    if (this.group.valid) {
-      this.dialogRef.close(this.group.value);
-    }
+  ngOnInit(){
+    this.loadForm()
   }
+
+  save(){
+    const record = this.group.value
+    this.reference.close(record)
+  }
+  loadForm(){
+    this.group = new FormGroup({
+      id: new FormControl(this.data?.id),
+      complaintId: new FormControl(this.data?.complaintId, Validators.required),
+      status: new FormControl(this.data?.status, Validators.required),
+      assignedTo: new FormControl(this.data?.assignedTo, Validators.required),
+      createdDate: new FormControl(this.data?.createdDate, Validators.required),
+      comments: new FormControl(this.data?.comments, Validators.required)
+    })
+  }
+
+  
 }

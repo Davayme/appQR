@@ -8,19 +8,19 @@
     <form class="container" [formGroup]="group">
         <mat-form-field appearance="outline">
             <mat-label>ID Cliente</mat-label>
-            <input type="number" matInput formControlName="id_cliente">
+            <input type="number" matInput formControlName="id_client">
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>ID Empleado</mat-label>
-            <input type="number" matInput formControlName="id_empleado">
+            <input type="number" matInput formControlName="id_employee">
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>ID Seguimiento</mat-label>
-            <input type="number" matInput formControlName="id_seguimiento">
+            <mat-label>Fecha de creación</mat-label>
+            <input type="date" matInput formControlName="dateCreated">
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Fecha</mat-label>
-            <input type="date" matInput formControlName="fecha">
+            <mat-label>Comentario</mat-label>
+            <input type="text" matInput formControlName="comentary">
         </mat-form-field>
         <div fxLayout fxLayoutAlign="end" fxLayoutGap="10px">
             <button

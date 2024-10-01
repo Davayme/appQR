@@ -1,30 +1,42 @@
 <mat-toolbar>
-    <h3>{{ title }}</h3>
-    <button mat-icon-button mat-dialog-close>
-        <mat-icon>close</mat-icon>
-    </button>
+  <h3>{{ title }}</h3>
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-dialog-content>
-    <form class="container" [formGroup]="group">
-        <mat-form-field appearance="outline">
-            <mat-label>Estado</mat-label>
-            <input type="text" matInput formControlName="status">
-        </mat-form-field>
-        <div fxLayout fxLayoutAlign="end" fxLayoutGap="10px">
-            <button
-                mat-raised-button
-                color="primary"
-                type="button"
-                [disabled]="group.invalid"
-                (click)="save()">
-                Grabar
-            </button>
-            <button
-                mat-button
-                color="primary"
-                mat-dialog-close>
-                Cancelar
-            </button>
-        </div>
-    </form>
+  <form class="container" [formGroup]="group">
+    <mat-form-field appearance="outline">
+      <mat-label>ID de Queja</mat-label>
+      <input type="text" matInput formControlName="complaintId" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <input type="text" matInput formControlName="status" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Asignado a</mat-label>
+      <input type="text" matInput formControlName="assignedTo" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Creación</mat-label>
+      <input type="date" matInput formControlName="createdDate" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Comentarios</mat-label>
+      <textarea matInput formControlName="comments"></textarea>
+    </mat-form-field>
+    <div fxLayout fxLayoutAlign="end" fxLayoutGap="10px">
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        [disabled]="group.invalid"
+        (click)="save()"
+      >
+        Grabar
+      </button>
+      <button mat-button color="primary" mat-dialog-close>Cancelar</button>
+    </div>
+  </form>
 </mat-dialog-content>

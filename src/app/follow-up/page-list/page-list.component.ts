@@ -8,9 +8,13 @@ import { MetaDataColumn } from 'src/app/shared/interfaces/metacolumn.interface';
 import { FormComponent } from '../form/form.component';
 import { environment } from 'src/environments/environment.development';
 
-export interface ITracking {
-  id: number;
-  status: string;
+export interface IFollowUp {
+  id: number; 
+  complaintId: number; 
+  status: string; 
+  assignedTo: string; 
+  createdDate: Date; 
+  comments: string;
 }
 
 @Component({
@@ -19,27 +23,96 @@ export interface ITracking {
   styleUrls: ['./page-list.component.css']
 })
 export class PageListComponent {
-  data: ITracking[] = [
-    { id: 1, status: 'activo' },
-    { id: 2, status: 'inactivo' },
-    { id: 3, status: 'activo' },
-    { id: 4, status: 'inactivo' },
-    { id: 5, status: 'activo' },
-    { id: 6, status: 'activo' },
-    { id: 7, status: 'inactivo' },
-    { id: 8, status: 'activo' },
-    { id: 9, status: 'inactivo' },
-    { id: 10, status: 'activo' },
-    { id: 11, status: 'activo' },
-    { id: 12, status: 'inactivo' },
-    { id: 13, status: 'activo' },
-    { id: 14, status: 'inactivo' },
-    { id: 15, status: 'activo' }
+  data: IFollowUp[] = [
+    { 
+      id: 1, 
+      complaintId: 101, 
+      status: 'Abierto', 
+      assignedTo: 'Juan Pérez', 
+      createdDate: new Date('2023-01-15'), 
+      comments: 'Cliente reporta problemas con el producto.' 
+    },
+    { 
+      id: 2, 
+      complaintId: 102, 
+      status: 'En Proceso', 
+      assignedTo: 'María Gómez', 
+      createdDate: new Date('2023-02-10'), 
+      comments: 'Se está investigando el problema reportado.' 
+    },
+    { 
+      id: 3, 
+      complaintId: 103, 
+      status: 'Cerrado', 
+      assignedTo: 'Carlos Martínez', 
+      createdDate: new Date('2023-03-05'), 
+      comments: 'Problema resuelto y cliente notificado.' 
+    },
+    { 
+      id: 4, 
+      complaintId: 104, 
+      status: 'Abierto', 
+      assignedTo: 'Diana Torres', 
+      createdDate: new Date('2023-04-01'), 
+      comments: 'Cliente solicita reembolso.' 
+    },
+    { 
+      id: 5, 
+      complaintId: 105, 
+      status: 'En Proceso', 
+      assignedTo: 'Eduardo López', 
+      createdDate: new Date('2023-04-15'), 
+      comments: 'Revisión de la solicitud de reembolso en curso.' 
+    },
+    { 
+      id: 6, 
+      complaintId: 106, 
+      status: 'Cerrado', 
+      assignedTo: 'Fernanda Morales', 
+      createdDate: new Date('2023-05-10'), 
+      comments: 'Reembolso procesado y cliente notificado.' 
+    },
+    { 
+      id: 7, 
+      complaintId: 107, 
+      status: 'Abierto', 
+      assignedTo: 'Gabriel Pérez', 
+      createdDate: new Date('2023-06-01'), 
+      comments: 'Cliente reporta mal funcionamiento del software.' 
+    },
+    { 
+      id: 8, 
+      complaintId: 108, 
+      status: 'En Proceso', 
+      assignedTo: 'Hilda Romero', 
+      createdDate: new Date('2023-06-15'), 
+      comments: 'Equipo técnico revisando el problema reportado.' 
+    },
+    { 
+      id: 9, 
+      complaintId: 109, 
+      status: 'Cerrado', 
+      assignedTo: 'Ignacio Castro', 
+      createdDate: new Date('2023-07-05'), 
+      comments: 'Problema solucionado con actualización de software.' 
+    },
+    { 
+      id: 10, 
+      complaintId: 110, 
+      status: 'Abierto', 
+      assignedTo: 'Julia Rivas', 
+      createdDate: new Date('2023-07-20'), 
+      comments: 'Cliente insatisfecho con el servicio recibido.' 
+    }
   ];
 
   metaDataColumns: MetaDataColumn[] = [
     { field: "id", title: "ID" },
-    { field: "status", title: "ESTADO" }
+    { field: "complaintId", title: "QUEJA ID" },
+    { field: "assignedTo", title: "ASIGNADO A" },
+    { field: "createdDate", title: "FECHA DE CREACIÓN"},
+    { field: "status", title: "ESTADO" },
+    { field: "comments", title: "COMENTARIOS" }
   ];
 
   keypadButtons: KeypadButton[] = [
@@ -47,7 +120,7 @@ export class PageListComponent {
     { icon: "add", tooltip: "AGREGAR", color: "primary", action: "NEW" }
   ];
 
-  records: ITracking[] = [];
+  records: IFollowUp[] = [];
   totalRecords = this.data.length;
   currentPage = 0;
 
@@ -64,7 +137,7 @@ export class PageListComponent {
     this.changePage(this.currentPage);
   }
 
-  editRecord(row: ITracking) {
+  editRecord(row: IFollowUp) {
     this.openForm(row);
   }
 
@@ -78,7 +151,7 @@ export class PageListComponent {
     }
   }
 
-  openForm(row: ITracking | null = null) {
+  openForm(row: IFollowUp | null = null) {
     const options = {
       panelClass: 'panel-container',
       disableClose: true,
@@ -90,7 +163,6 @@ export class PageListComponent {
       if (!response) { return; }
 
       if (!row) {
-        // Crear un nuevo registro con un ID único basado en el valor más alto de la lista
         const newId = this.data.length > 0 ? Math.max(...this.data.map(item => item.id)) + 1 : 1;
         const newTracking = { id: newId, ...response };
         this.data.push(newTracking);
@@ -98,7 +170,6 @@ export class PageListComponent {
         this.loadRecords();
         this.showMessage('Registro exitoso');
       } else {
-        // Editar el registro existente
         const index = this.data.findIndex(track => track.id === row.id);
         if (index !== -1) {
           this.data[index] = { ...row, ...response };

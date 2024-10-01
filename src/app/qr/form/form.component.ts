@@ -29,10 +29,11 @@ export class FormComponent {
   loadForm() {
     this.group = new FormGroup({
       id: new FormControl(this.data?.id),
-      id_cliente: new FormControl(this.data?.id_cliente, Validators.required),
-      id_empleado: new FormControl(this.data?.id_empleado, Validators.required),
-      id_seguimiento: new FormControl(this.data?.id_seguimiento, Validators.required),
-      fecha: new FormControl(this.data?.fecha, Validators.required),
+      id_client: new FormControl(this.data?.id_client, Validators.required),
+      id_employee: new FormControl(this.data?.id_employee, Validators.required),
+      dateCreated: new FormControl(this.data?.dateCreated, Validators.required),
+      comentary: new FormControl(this.data?.comentary, Validators.required)
+
     });
   }
 }

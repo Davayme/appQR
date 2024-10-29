@@ -28,12 +28,11 @@ export class FormComponent {
 
   loadForm(){
     this.group = new FormGroup({
-      _id: new FormControl(this.data?._id),
+      id: new FormControl(this.data?.id),
       name: new FormControl(this.data?.name, Validators.required),
       lastname: new FormControl(this.data?.lastname, Validators.required),
       email: new FormControl(this.data?.email, Validators.required),
       phone: new FormControl(this.data?.phone, Validators.required),
-      address: new FormControl(this.data?.address, Validators.required),
     })
   }
 }

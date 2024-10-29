@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment.development';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -19,11 +21,13 @@ import { HttpClientModule } from '@angular/common/http';
     CoreModule,
     SharedModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    /* AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule */
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private iconService: IconService) {}
+  constructor(private iconService: IconService) { }
 }

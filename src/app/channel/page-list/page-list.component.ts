@@ -58,7 +58,12 @@ export class PageListComponent {
 
   loadChannels() {
     this.records = [...this.data];
-    this.changePage(this.currentPage);
+/*     this.agencySrv.updateAgency(response.id, response).subscribe({
+      next: ()=>{
+        this.loadAgencies()
+        this.showMessage('Registro actualizado')
+      }
+    });  */
   }
 
   delete(id: number) {

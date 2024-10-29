@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { StateService } from '../services/state.service';
 
 @Component({
   selector: 'qr-login',
@@ -12,7 +13,7 @@ export class LoginComponent {
   group: FormGroup
   router = inject(Router);
   authsrv = inject(AuthService);
-
+  statesrv = inject(StateService);
   constructor() {
     this.group = new FormGroup({
       email: new FormControl(null, Validators.email),
@@ -26,6 +27,7 @@ export class LoginComponent {
       this.authsrv.login(record.email, record.password)
       .then(() => {
         this.router.navigate(['/agencies']);
+        this.statesrv.toggleVisibility();
       })
     } else {
       alert('Llene los campos');

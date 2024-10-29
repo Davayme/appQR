@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment.development';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { IconService } from './core/services/icon.service';
 import { HttpClientModule } from '@angular/common/http';
+import {getAuth, provideAuth} from '@angular/fire/auth';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    /* AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule */
+    provideFirebaseApp(()=> initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,8 +7,8 @@
     </div>
   </button>
   <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-          <mat-icon>logout</mat-icon>
+      <button mat-menu-item (click)="logOut()">
+          <mat-icon >logout</mat-icon>
           <span>Cerrar Sesión</span>
       </button>
   </mat-menu>
